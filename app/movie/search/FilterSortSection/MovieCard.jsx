@@ -8,7 +8,7 @@ export default function MovieCard({data}) {
     <Link href={`/movie/${id}`}
         class="bg-zinc-900 rounded-lg overflow-hidden hover:scale-105 transition-transform">
         <div className="relative w-full aspect-[2/3]">
-            <Image class="w-full aspect-[2/3] object-cover" src={`https://image.tmdb.org/t/p/w500/${poster_path}`} fill />
+            <Image alt="" class="w-full aspect-[2/3] object-cover" src={`https://image.tmdb.org/t/p/w500/${poster_path}`} fill />
         </div>
         {/* <img src="https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
             alt="Avatar: The Way of Water"/> */}

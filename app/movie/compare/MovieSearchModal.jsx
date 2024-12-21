@@ -47,7 +47,7 @@ function handleSearchBoxChange(event){
 const renderItem = ({id,  backdrop_path,title, release_date })=>(
     <button onClick={()=>selectMovie(data['itemIndex'], id)} className=" w-full  hover:bg-gray-700 rounded-md flex gap-4 items-center">
         <div className="relative w-32 h-32">
-            <Image className="object-cover rounded-md" src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} fill/>
+            <Image alt="" className="object-cover rounded-md" src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} fill/>
         </div>
         <div>
             <h3 className="text-light text-sm font-bold truncate">{title}</h3>

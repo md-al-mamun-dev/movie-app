@@ -15,7 +15,7 @@ export default function CompareItem({data, deleteItem}) {
           <div class="grid grid-cols-5 gap-8">
             <div class="col-span-2 h-full">
                 <div className="w-full h-full mb-4  max-h-full relative">
-                    <Image className="object-contain rounded-lg" src={`https://image.tmdb.org/t/p/original/${poster_path}`} fill/>
+                    <Image alt="" className="object-contain rounded-lg" src={`https://image.tmdb.org/t/p/original/${poster_path}`} fill/>
                 </div>
               <h2 class="text-xl font-bold mb-2 text-center">{title}</h2>
             </div>

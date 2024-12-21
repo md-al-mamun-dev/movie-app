@@ -45,7 +45,7 @@ export default function useTrendingMovies(query) {
         return () => {
             controller.abort(); // Cancel the fetch request on unmount
         };
-    }, [url]);
+    }, [url, fetchTrending]);
 
     const refetch = () => {
         const controller = new AbortController();

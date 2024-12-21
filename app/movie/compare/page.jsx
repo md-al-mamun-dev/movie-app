@@ -61,7 +61,7 @@ export default function page() {
         {
           movies.map((item, index)=>{
             if(Object.keys(item).length > 0){
-              return <CompareItem data={item} deleteItem={()=>setMovies(prev=>[...movies.slice(0, index), ...movies.slice(index + 1)])}/>
+              return <CompareItem key={index}  data={item} deleteItem={()=>setMovies(prev=>[...movies.slice(0, index), ...movies.slice(index + 1)])}/>
             }
 
             if(Object.keys(item).length === 0){
