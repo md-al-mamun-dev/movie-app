@@ -1,17 +1,21 @@
 import Image from "next/image"
-import SimilarMoviesSection from "./SimilarMoviesSection"
+// import SimilarMoviesSection from "./SimilarMoviesSection"
 import formatDate from "@/lib/formateDate"
+import WatchListButton from "./WatchListButton";
+import SocialShare from "./SocialShare";
+import dynamic from "next/dynamic";
+const SimilarMoviesSection = dynamic(() => import('./SimilarMoviesSection'), {
+                                                                                loading: () => <p>Loading...</p>,
+                                                                                ssr: false,
+                                                                              })
 
 async function getMovie(id){
   try {
     const movieDetailsRes = await fetch(`${process.env.BASE_URL}/api/movie/${id}`, { next: { revalidate: 60 } });
-    // const movieDetailsRes = await fetch(`/api/movie/${id}`, { next: { revalidate: 60 } });
     if (!movieDetailsRes.ok) throw new Error("Failed to fetch movie details");
-
     const movieDetails = await movieDetailsRes.json();
 
     const movieCastRes = await fetch(`${process.env.BASE_URL}/api/movie/${id}/cast`, { next: { revalidate: 60 } });
-    // const movieCastRes = await fetch(`/api/movie/${id}/cast`, { next: { revalidate: 60 } });
     if (!movieCastRes.ok) throw new Error("Failed to fetch movie cast");
 
     const { cast } = await movieCastRes.json();
@@ -32,14 +36,14 @@ async function getMovie(id){
   }
 }
 
-async function getCast(id){
-  "use server"
-  const res = await fetch(process.env.BASE_URL+ "/api/movie/"+ id+"/cast")
-  // const res = await fetch("/api/movie/"+ id+"/cast")
+// async function getCast(id){
+//   "use server"
+//   const res = await fetch(process.env.BASE_URL+ "/api/movie/"+ id+"/cast")
+//   // const res = await fetch("/api/movie/"+ id+"/cast")
 
-  const resJson =  await res.json()
-  return resJson
-}
+//   const resJson =  await res.json()
+//   return resJson
+// }
 
 
 
@@ -127,8 +131,8 @@ export default async function page({params}) {
 
                 </div>
               </div>
-
-              <div className="mb-6">
+              <WatchListButton/>
+              {/* <div className="mb-6">
                 <div className="flex flex-wrap gap-4">
                   <div className="text-center">
                     <button
@@ -191,8 +195,8 @@ export default async function page({params}) {
                     </button>
                   </div>
                 </div>
-              </div>
-
+              </div> */}
+              <SocialShare/>
               {/* <div className="mb-6">
                 <h3 className="text-gray-400 mb-2">Share on social media</h3>
                 <div className="flex flex-wrap gap-4">
@@ -235,41 +239,3 @@ export default async function page({params}) {
     </>
   )
 }
-
-
-
-// async function getMovies(path){
-//   try {
-//     const res = await fetch(process.env.BASE_URL + "/api/movies" + path);
-//     if (!res.ok) throw new Error("Failed to fetch");
-//     const resJson = await res.json();
-//     return resJson.results;
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//     return []; // Return an empty array or mock data
-//   }
-// }
-
-// export async function generateStaticParams() {
-//   const trendingMovies = await getMovies('/trending')
-//   const popularMovies = await getMovies('/popular')
-//   const topRatedrMovies = await getMovies('/top-rated')
-//   const allId = [
-//     ...trendingMovies.map(item => ({ movieId: item.id.toString() })),
-//     ...popularMovies.map(item => ({ movieId: item.id.toString() })),
-//     ...topRatedrMovies.map(item => ({ movieId: item.id.toString() })),
-//   ];
-//   console.log("All IDs:", allId);
-  
-//   const uniqueMovieIds = new Set();
-//   const uniqueArray = allId.filter(obj => {
-//     if (!uniqueMovieIds.has(obj.movieId)) {
-//       uniqueMovieIds.add(obj.movieId);
-//       return true;
-//     }
-//     return false;
-//   });
-//   console.log("Unique IDs:", uniqueArray);
-  
-//   return uniqueArray;
-// }
