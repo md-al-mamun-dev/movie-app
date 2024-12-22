@@ -44,7 +44,7 @@ export default function CompareItem({data, deleteItem}) {
                 <span class="text-gray-400">Genres:</span>
                 <div class="mt-2 flex flex-wrap gap-2">
                     {
-                        genres?.map(({ name }) => <span class="bg-zinc-700 px-2 py-1 rounded-full text-sm">
+                        genres?.map(({ name }, index) => <span key={index} class="bg-zinc-700 px-2 py-1 rounded-full text-sm">
                         {name} 
                       </span> )
                     }

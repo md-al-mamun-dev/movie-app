@@ -49,7 +49,7 @@ export default function useWatchLater() {
         return () => {
             controller.abort();
         };
-    }, [url]);
+    }, [url, fetchData]);
 
     const refetch = () => {
         const controller = new AbortController();

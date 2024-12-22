@@ -3,7 +3,7 @@ import React from 'react'
 import useWatchLater from './useWatchLater'
 import CardItem from './CardItem'
 
-export default function page() {
+export default function WatchLater() {
   const {data: watchLaterList, refetch, setInfo } = useWatchLater()
   // function removeWatchLaterItem(id) {
   //   setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
@@ -14,7 +14,7 @@ export default function page() {
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-white">Watch Later</h1>
         <p className="text-light/70 mt-2">
-          Movies you've saved to watch in the future
+          {`Movies you've saved to watch in the future`}
         </p>
       </header>
 
@@ -53,7 +53,7 @@ export default function page() {
                         Explore Movies
                       </a>
                     </div>
-                : watchLaterList?.map(item => <CardItem data={item} refetch={refetch} setInfo={setInfo} />)
+                : watchLaterList?.map((item, index) => <CardItem key={index} data={item} refetch={refetch} setInfo={setInfo} />)
         }
       </div>
 

@@ -3,7 +3,7 @@ import { useState } from "react"
 import CompareItem from "./CompareItem"
 import MovieSearchModal from "./MovieSearchModal"
 
-export default function page() {
+export default function Compare() {
   const [movies, setMovies] = useState(
     [
       {},{}
@@ -57,7 +57,7 @@ export default function page() {
             }
 
             if(Object.keys(item).length === 0){
-              return <div className="bg-zinc-900 rounded-lg p-4 flex flex-col min-h-[400px]">
+              return <div key={index}  className="bg-zinc-900 rounded-lg p-4 flex flex-col min-h-[400px]">
                       <div className="flex justify-end mb-4">
                         <button onClick={()=>setMovies(prev=>[...movies.slice(0, index), ...movies.slice(index + 1)])} className="text-gray-400 hover:text-white">✕</button>
                       </div>
