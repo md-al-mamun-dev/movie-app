@@ -47,7 +47,7 @@ export default function useMovieDetails(id) {
         return () => {
             controller.abort();
         };
-    }, [url]);
+    }, [url, fetchData]);
 
     const refetch = () => {
         const controller = new AbortController();
