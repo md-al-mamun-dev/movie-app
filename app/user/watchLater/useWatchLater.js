@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 
-export default function useTrendingMovies(query) {
-
-    const url = process.env.BASE_URL+ `/api/movies/search?query=${encodeURIComponent(query)}`
-    // const url = `/api/movies/search?query=${encodeURIComponent(query)}`
+export default function useWatchLater() {
+    const baseUrl = process.env.BASE_URL; // Use a NEXT_PUBLIC_ prefix for client-side env variables
+    const url = `${baseUrl}/api/me/watch-later`;
 
     const [info, setInfo] = useState({
         isLoading: false,
@@ -12,7 +11,7 @@ export default function useTrendingMovies(query) {
         error: null,
     });
 
-    const fetchTrending = async (signal) => {
+    const fetchData = async (signal) => {
         setInfo((prev) => ({ ...prev, isLoading: true, isError: false, error: null }));
         try {
             const res = await fetch(url, { signal });
@@ -20,14 +19,15 @@ export default function useTrendingMovies(query) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const resJson = await res.json();
+            console.log(resJson)
             setInfo({
                 isLoading: false,
                 isError: false,
-                data: resJson.results,
+                data: resJson?.watchLaterList || resJson, // Ensure results or fallback to full response
                 error: null,
             });
         } catch (error) {
-            if (signal && signal.aborted) {
+            if (signal?.aborted) {
                 console.log("Fetch aborted");
                 return;
             }
@@ -42,16 +42,16 @@ export default function useTrendingMovies(query) {
 
     useEffect(() => {
         const controller = new AbortController();
-        fetchTrending(controller.signal);
+        fetchData(controller.signal);
 
         return () => {
-            controller.abort(); // Cancel the fetch request on unmount
+            controller.abort();
         };
-    }, [url, fetchTrending]);
+    }, [url]);
 
     const refetch = () => {
         const controller = new AbortController();
-        fetchTrending(controller.signal);
+        fetchData(controller.signal);
     };
 
     return { ...info, refetch };

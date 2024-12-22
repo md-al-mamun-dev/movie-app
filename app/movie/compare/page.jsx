@@ -19,6 +19,8 @@ export default function page() {
    async function fetchMovieDetails(index, id){
     try {
       const res = await fetch(process.env.BASE_URL+ `/api/movie/${id}`);
+      // const res = await fetch(`/api/movie/${id}`);
+
       if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -36,17 +38,7 @@ export default function page() {
       
   }
   }
-  function addMovieData(index, id) {
-    fetchMovieDetails(index, id)
 
-    // if(movies.length=== 0 || (movies.length === 1 && Object.keys(movies[0]).length === 0)){
-    //   setMovie([data])
-    // }else if(movies.length > 1 && (index == (movies.length-1))){
-    //   setMovies([...movies.slice(0, index), data])
-    // }else{
-    //   setMovies([...movies.slice(0, index), data, ...movies.slice(index + 1)])
-    // }
-  }
   return (
     <main className="container mx-auto px-4 pt-24 pb-8">
       <div className="flex justify-between items-center mb-8">

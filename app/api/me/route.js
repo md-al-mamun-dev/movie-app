@@ -5,6 +5,15 @@ import { MongoClient, ObjectId } from "mongodb";
 
 export async function GET(request) {
     const token = request.cookies.get("token")?.value || "";
+    if(!token){
+        return NextResponse.json(
+            {
+                success: false,
+                message: "invalid request...",
+            },
+            { status: 400 }
+        );
+    }
     try {
         const userData = await getDataFromToken(token);
         console.log(userData)

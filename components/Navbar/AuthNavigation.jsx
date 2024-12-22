@@ -15,12 +15,16 @@ export default function AuthNavigation() {
 
     async function handleLogout() {
         try {
-            const response = await fetch(`${process.env.BASE_URL}/api/auth/logout`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
+
+            // `${process.env.BASE_URL}/api/auth/logout`, 
+
+            const response = await fetch( `${process.env.BASE_URL}/api/auth/logout`, 
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                    });
 
             const data  = await response.json()
             console.log(response)

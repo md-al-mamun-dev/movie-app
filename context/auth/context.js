@@ -14,6 +14,8 @@ export const Provider = ({ children }) => {
         const checkUserLoggedIn = async () => {
             const res = await fetch(process.env.BASE_URL+'/api/me' , { method: 'GET' });
 
+            // const res = await fetch('/api/me' , { method: 'GET' });
+
             if (res.ok) {
                 const data = await res.json();
                 setUser(data.user);

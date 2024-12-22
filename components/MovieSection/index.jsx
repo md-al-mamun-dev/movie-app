@@ -3,6 +3,8 @@ import MovieCard from "./MovieCard";
 async function getMovies(path){
     "use server"
     const res = await fetch(process.env.BASE_URL+ "/api/movies"+ path)
+    // const res = await fetch("/api/movies"+ path)
+
     const resJson =  await res.json()
     return resJson.results
 }

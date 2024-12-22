@@ -5,11 +5,13 @@ import formatDate from "@/lib/formateDate"
 async function getMovie(id){
   try {
     const movieDetailsRes = await fetch(`${process.env.BASE_URL}/api/movie/${id}`, { next: { revalidate: 60 } });
+    // const movieDetailsRes = await fetch(`/api/movie/${id}`, { next: { revalidate: 60 } });
     if (!movieDetailsRes.ok) throw new Error("Failed to fetch movie details");
 
     const movieDetails = await movieDetailsRes.json();
 
     const movieCastRes = await fetch(`${process.env.BASE_URL}/api/movie/${id}/cast`, { next: { revalidate: 60 } });
+    // const movieCastRes = await fetch(`/api/movie/${id}/cast`, { next: { revalidate: 60 } });
     if (!movieCastRes.ok) throw new Error("Failed to fetch movie cast");
 
     const { cast } = await movieCastRes.json();
@@ -33,6 +35,8 @@ async function getMovie(id){
 async function getCast(id){
   "use server"
   const res = await fetch(process.env.BASE_URL+ "/api/movie/"+ id+"/cast")
+  // const res = await fetch("/api/movie/"+ id+"/cast")
+
   const resJson =  await res.json()
   return resJson
 }

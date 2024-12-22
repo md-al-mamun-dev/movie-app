@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+// url = `${process.env.BASE_URL}/api/movies/trending`
 export default function useTrendingMovies(url = `${process.env.BASE_URL}/api/movies/trending`) {
     const [info, setInfo] = useState({
         isLoading: false,
