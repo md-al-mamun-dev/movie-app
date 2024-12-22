@@ -1,7 +1,8 @@
 import localFont from "next/font/local";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
-import { Provider } from "@/context/auth/context";
+import { Provider as AuthProvider } from "@/context/auth/context";
+import { Provider as WatchProvider } from "@/context/watchList/context";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,10 +24,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}>
-        <Provider>
-          <Navbar/>
-          {children}
-        </Provider>
+        <AuthProvider>
+          <WatchProvider>
+            <Navbar/>
+            {children}
+          </WatchProvider>
+        </AuthProvider>
       </body>
     </html>
   );

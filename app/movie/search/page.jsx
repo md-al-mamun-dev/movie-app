@@ -1,18 +1,10 @@
 
 import FilterSortSection from "./FilterSortSection"
-
-async function getMovieSearchResult(query){
-    "use server"
-    const res = await fetch(process.env.BASE_URL+ `/api/movies/search?query=${encodeURIComponent(query)}`)
-    // const res = await fetch(`/api/movies/search?query=${encodeURIComponent(query)}`)
-    const resJson =  await res.json()
-    return resJson
-  }
-
+import getSearchedResult from "@/lib/api/getSearchedMovies"
 
 export default async function page({params, searchParams}) {
     const searchText = searchParams?.query
-    const res  = await getMovieSearchResult(searchText)
+    const res  = await getSearchedResult(searchText)
     const result  = res?.results
 
   return (

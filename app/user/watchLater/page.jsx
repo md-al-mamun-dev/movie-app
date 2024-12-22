@@ -4,7 +4,11 @@ import useWatchLater from './useWatchLater'
 import CardItem from './CardItem'
 
 export default function page() {
-  const {data: watchLaterList, refetch } = useWatchLater()
+  const {data: watchLaterList, refetch, setInfo } = useWatchLater()
+  // function removeWatchLaterItem(id) {
+  //   setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
+  // }
+  // console.log(watchLaterList)
   return (
     <div className="container mx-auto pt-24 pb-8">
       <header className="mb-8">
@@ -49,7 +53,7 @@ export default function page() {
                         Explore Movies
                       </a>
                     </div>
-                : watchLaterList?.map(item => <CardItem data={item} refetch={refetch}/>)
+                : watchLaterList?.map(item => <CardItem data={item} refetch={refetch} setInfo={setInfo} />)
         }
       </div>
 

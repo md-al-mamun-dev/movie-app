@@ -18,7 +18,7 @@ export default function Navbar() {
               Compare Movies
             </Link>
 
-            <Link href="/" className="text-white hover:text-gray-300">
+            <Link href="/user/watchLater" className="text-white hover:text-gray-300">
               Watch Later
             </Link>
             <AuthNavigation/>          

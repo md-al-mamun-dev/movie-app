@@ -2,15 +2,6 @@
 import MovieCard from "./MovieCard"
 import useSimilarMovies from "./useSimilarMovies"
 
-
-// async function getSimilar(id){
-//   "use server"
-//   const res = await fetch(process.env.BASE_URL+ "/api/movie/"+ id+"/similar", {cache: "no-store",})
-//   const resJson =  await res.json()
-//   return {...resJson, similar: resJson['results'] }
-// }
-
-
 export default function SimilarMoviesSection({movieId}) {
   const { data:{results} }  = useSimilarMovies(movieId)
   return (

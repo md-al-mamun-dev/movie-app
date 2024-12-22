@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
+import { useWatchListStore } from "@/context/watchList/context";
 
 export default function useWatchLater() {
     const baseUrl = process.env.BASE_URL; // Use a NEXT_PUBLIC_ prefix for client-side env variables
     const url = `${baseUrl}/api/me/watch-later`;
 
-    const [info, setInfo] = useState({
-        isLoading: false,
-        isError: false,
-        data: [],
-        error: null,
-    });
+    const {info, setInfo} = useWatchListStore()
+
+    // const [info, setInfo] = useState({
+    //     isLoading: false,
+    //     isError: false,
+    //     data: [],
+    //     error: null,
+    // });
 
     const fetchData = async (signal) => {
         setInfo((prev) => ({ ...prev, isLoading: true, isError: false, error: null }));
@@ -19,7 +22,6 @@ export default function useWatchLater() {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const resJson = await res.json();
-            console.log(resJson)
             setInfo({
                 isLoading: false,
                 isError: false,
@@ -54,5 +56,5 @@ export default function useWatchLater() {
         fetchData(controller.signal);
     };
 
-    return { ...info, refetch };
+    return { ...info, setInfo, refetch };
 }

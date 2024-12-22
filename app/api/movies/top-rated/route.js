@@ -1,4 +1,4 @@
-import fetchWithMovieDbAuth from "@/lib/fetchWithMovieDbAuth";
+import fetchWithMovieDbAuth from "@/lib/api/fetchWithMovieDbAuth";
 
 export async function GET(request) {
     const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'

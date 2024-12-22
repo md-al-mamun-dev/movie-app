@@ -1,4 +1,4 @@
-import fetchWithMovieDbAuth from "@/lib/fetchWithMovieDbAuth";
+import fetchWithMovieDbAuth from "@/lib/api/fetchWithMovieDbAuth";
 
 export async function GET(request) {
     const urlParts = request.nextUrl.pathname.split('/');

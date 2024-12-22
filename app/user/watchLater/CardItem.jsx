@@ -1,13 +1,13 @@
-import React from 'react'
 import useMovieDetails from './useMovieDetails'
-import Link from 'next/link'
 import Image from 'next/image'
 
-export default function CardItem({data, refetch}) {
-  const {data:movieDetails} = useMovieDetails(data.movieId)
+export default function CardItem({data, refetch, setInfo}) {
+  const { data:movieDetails } = useMovieDetails(data.movieId)
   const {poster_path, backdrop_path, title, release_date  }  = movieDetails 
 
   async function removeButtonClickHandlar(id) {
+    const prevData = data
+    setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
     try {
       const res = await fetch(`${process.env.BASE_URL}/api/me/watch-later`, {
           method: "DELETE",
@@ -16,43 +16,38 @@ export default function CardItem({data, refetch}) {
           },
           body: JSON.stringify({ movieId:id }),
       });
-
       const result = await res.json();
 
-      if (res.ok) {
-        refetch()
-          // alert("movie removed from watch later list")
-      } else {
-
-      }
   } catch (error) {
-      alert("Error remove form :", error);
-
+    setInfo(prev => !prev.some(item => item.movieId === id) ? [...prev, {...data}] : prev)
+    alert("Error remove form :", error);
   }
   }
   return (
     
         <div className="bg-moviedb-black rounded-lg overflow-hidden shadow-lg group relative">
-          <div className='w-full h-[450px] relative'>
-            <Link href={`/movie/${data.movieId}`}>
-              {
-                backdrop_path
-                  ? <Image
-                      src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-                      alt={title}
-                      className=" object-cover"
-                    />
-                  : poster_path
+          {/* <Link href={`/movie/${data.movieId}`}> */}
+            <div className='w-full h-[450px] relative'>
+                {
+                  backdrop_path
                     ? <Image
-                          src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-                          alt={title}
-                          className=" object-cover"
-                        />
-                    : <>{title}</>
+                          fill
+                        src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+                        alt={title}
+                        className=" object-cover"
+                      />
+                    : poster_path
+                      ? <Image
+                            fill
+                            src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+                            alt={title}
+                            className=" object-cover"
+                          />
+                      : <>{title}</>
 
-              }
-            </Link>
-          </div>
+                }
+            </div>
+          {/* </Link> */}
           <div
             className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4"
           >

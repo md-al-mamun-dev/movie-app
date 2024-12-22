@@ -6,51 +6,34 @@ const movieSections = [
                         {
                           id    : "trendingMovies",
                           title : "Trending Now",
-                          path  : "/trending"
+                 fetchCategory  : "trending"
                         },
                         {
                           id    : "popularMovies",
                           title : "Popular on MOVIE DB",
-                          path  : "/popular"
+                 fetchCategory  : "popular"
                         },
                         {
                           id    : "topRatedMovies",
                           title : "Top Rated",
-                          path  : "/top-rated"
+                 fetchCategory  : "top_rated"
                         }
                       ]
 
   return (
     <>
       <Hero/>
-
-      {/* Movie Sections */}
       <div className="container mx-auto px-4 py-8">
         {
           movieSections
             .map(
-              ({id, title, path}, idx) => 
+              ({id, title, fetchCategory}, idx) => 
                 <MovieSection 
                     key={id+'-'+idx}
                     id={id} 
                     title={title} 
-                    path={path}/>)
+                    fetchCategory={fetchCategory}/>)
         }
-        {/* <MovieSection 
-          id="trendingMovies"
-          title="Trending Now"
-          path="/trending"
-          />
-        <MovieSection 
-          id="popularMovies"
-          title="Popular on MOVIE DB"
-          path="/popular"
-          />
-        <MovieSection 
-          id="topRatedMovies"
-          title="Top Rated"
-          path="/top-rated"
-          /> */}
       </div>
     </>
   );
