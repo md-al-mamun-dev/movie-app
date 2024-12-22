@@ -47,7 +47,7 @@ export default function useSimilarMovies(id) {
         return () => {
             controller.abort();
         };
-    }, [url]);
+    }, []);
 
     const refetch = () => {
         const controller = new AbortController();

@@ -47,7 +47,6 @@ export default async function page({params}) {
     const movie = await getMovie(movieId)
     const { title, poster_path, backdrop_path, release_date, runtime, overview, genres, cast } = movie
 
-
     // const siteUrl = process.env.BASE_URL;
     // const pageUrl = `${siteUrl}/movie/${movieId}`;
     // const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;

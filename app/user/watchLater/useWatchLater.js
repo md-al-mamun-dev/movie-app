@@ -1,20 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useWatchListStore } from "@/context/watchList/context";
 
 export default function useWatchLater() {
     const baseUrl = process.env.BASE_URL; // Use a NEXT_PUBLIC_ prefix for client-side env variables
     const url = `${baseUrl}/api/me/watch-later`;
 
-    const {info, setInfo} = useWatchListStore()
+    const { info, setInfo } = useWatchListStore();
 
-    // const [info, setInfo] = useState({
-    //     isLoading: false,
-    //     isError: false,
-    //     data: [],
-    //     error: null,
-    // });
-
-    const fetchData = async (signal) => {
+    const fetchData = useCallback(async (signal) => { 
+        // Use useCallback to memoize fetchData
         setInfo((prev) => ({ ...prev, isLoading: true, isError: false, error: null }));
         try {
             const res = await fetch(url, { signal });
@@ -25,7 +19,7 @@ export default function useWatchLater() {
             setInfo({
                 isLoading: false,
                 isError: false,
-                data: resJson?.watchLaterList || resJson, // Ensure results or fallback to full response
+                data: resJson?.watchLaterList || resJson,
                 error: null,
             });
         } catch (error) {
@@ -40,7 +34,7 @@ export default function useWatchLater() {
                 error,
             });
         }
-    };
+    }, [url]); // Include url as a dependency for fetchData
 
     useEffect(() => {
         const controller = new AbortController();
@@ -49,12 +43,12 @@ export default function useWatchLater() {
         return () => {
             controller.abort();
         };
-    }, [url, fetchData]);
+    }, []); // Only depend on the memoized fetchData function
 
-    const refetch = () => {
+    const refetch = useCallback(() => {
         const controller = new AbortController();
         fetchData(controller.signal);
-    };
+    }, [fetchData]); // Include fetchData as a dependency for refetch
 
     return { ...info, setInfo, refetch };
 }

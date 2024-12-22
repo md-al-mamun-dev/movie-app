@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 export default function WatchListButton({ movieId }) {
     const { isLoggedIn } = useAuth()
     const router = useRouter()
-    const {data: watchLaterList, setInfo, refetch } = useWatchLater()
+    const {data: watchLaterList, setInfo } = useWatchLater()
     const hasOnwatchList = watchLaterList.some(item => item.movieId == movieId)
 
 
