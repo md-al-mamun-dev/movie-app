@@ -5,31 +5,18 @@ import SocialShare from "./SocialShare";
 import dynamic from "next/dynamic";
 import getMovie from "@/lib/api/getMovieDetails";
 import SocialSharePreviewModal from "./SocialSharePreviewModal";
+import SimilarMoviesLoadingSkeleton from "./SimilarMoviesSection/LoadingSkeleton";
 const SimilarMoviesSection = dynamic(() => import('./SimilarMoviesSection'), {
-                                                                                loading: () => <p>Loading...</p>,
+                                                                                loading: () => <SimilarMoviesLoadingSkeleton/>,
                                                                                 ssr: false,
                                                                               })
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const { movieId } = params
   const movie = await getMovie(movieId)
-
   const { title, poster_path, backdrop_path, release_date, runtime, overview, genres, cast } = movie
   const previousImages = (await parent).openGraph?.images || [];
 
-  // return {
-  //     title: title.slice(0, 100),
-  //     description: overview.slice(0, 100),
-  //     openGraph: {
-  //         images: [
-  //             {
-  //                 url: `https://image.tmdb.org/t/p/original/${poster_path}`,
-  //                 width: 1200,
-  //                 height: 600,
-  //             },
-  //         ],
-  //     },
-  // };
 
   return {
       title: title.slice(0, 100),
@@ -53,10 +40,6 @@ export default async function page({params}) {
     const movie = await getMovie(movieId)
     const { title, poster_path, backdrop_path, release_date, runtime, overview, genres, cast } = movie
 
-    // const siteUrl = process.env.BASE_URL;
-    // const pageUrl = `${siteUrl}/movie/${movieId}`;
-    // const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;
-
   return (
     <>
     {/* Movie Details Section  */}
@@ -72,9 +55,7 @@ export default async function page({params}) {
                   : <></>
             }
           </div>
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-black via-black/70"
-          ></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70"></div>
         </div>
 
         <div className="relative container mx-auto px-4 pt-32">
