@@ -1,10 +1,8 @@
 "use client"
 import Link from "next/link"
-import { useState } from "react"
-import { useAuth } from "@/context/auth/context"
 import { useRouter } from "next/navigation"
 
-export default function page() {
+export default function Register() {
   const router = useRouter()
   // firstname, 
   // lastname,
