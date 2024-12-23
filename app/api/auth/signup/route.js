@@ -5,11 +5,10 @@ import bcrypt from "bcryptjs";
 export async function POST(request) {
     try {
         const reqBody = await request.json();
-        const { username, email, password } = reqBody;
+        const { firstname, lastname, email, password } = reqBody;
 
         // Connect to the database
         const db = await getDatabase();
-        const usersCollection = db.collection("users");
 
         // Check if the "users" collection exists, and create it if it doesn't
         const collections = await db.listCollections().toArray();
@@ -19,6 +18,8 @@ export async function POST(request) {
             await db.createCollection("users"); // Create the collection explicitly
             console.log("Collection 'users' created.");
         }
+
+        const usersCollection = db.collection("users");
 
         // Validation: Check if user already exists
         const existingUser = await usersCollection.findOne({ email });
@@ -32,7 +33,8 @@ export async function POST(request) {
 
         // Create new user document
         const newUser = {
-            username,
+            firstname, 
+            lastname,
             email,
             password: hashedPassword,
             createdAt: new Date(),
@@ -42,15 +44,16 @@ export async function POST(request) {
         // Insert the user into the collection
         const result = await usersCollection.insertOne(newUser);
 
+        // user: {
+        //     id: result.insertedId.toString(),
+        //     name: result.firstname +' '+result.lastname,
+        //     email: newUser.email,
+        // },
+
         return NextResponse.json(
             {
                 message: "User registered successfully",
                 success: true,
-                user: {
-                    id: result.insertedId.toString(),
-                    username: newUser.username,
-                    email: newUser.email,
-                },
             },
             { status: 201 }
         );

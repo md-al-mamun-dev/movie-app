@@ -9,6 +9,7 @@ export default function WatchLater() {
   //   setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
   // }
   // console.log(watchLaterList)
+  console.log(watchLaterList)
   return (
     <div className="container mx-auto pt-24 pb-8">
       <header className="mb-8">
@@ -53,7 +54,7 @@ export default function WatchLater() {
                         Explore Movies
                       </a>
                     </div>
-                : watchLaterList?.map((item, index) => <CardItem key={index} data={item} refetch={refetch} setInfo={setInfo} />)
+                : watchLaterList?.map((item, index) => <CardItem key={item.movieId} data={item} refetch={refetch} setInfo={setInfo} />)
         }
       </div>
 

@@ -19,6 +19,30 @@ const nextConfig = {
             port: '',
             pathname: '/t/p/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'facebook.com',
+            port: '',
+            pathname: '/**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'x.com',
+            port: '',
+            pathname: '/**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'www.linkedin.com',
+            port: '',
+            pathname: '/**',
+          },
+          {
+            protocol: 'http',
+            hostname: 'localhost',
+            port: '3000',
+            pathname: '/**',
+          },
         ],
       },
 };

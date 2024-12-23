@@ -20,7 +20,6 @@ export default function Login() {
                         email,
                         password
                     };
-        console.log(payload)
         try {
             // const response = await fetch(`/api/auth/login`, {
             const response = await fetch(`${process.env.BASE_URL}/api/auth/login`, {            
@@ -32,8 +31,6 @@ export default function Login() {
             });
 
             const data  = await response.json()
-            console.log(response)
-            console.log(data)
             if(data.success){
                 setUser(data?.user)
                 router.push('/')
@@ -83,7 +80,7 @@ export default function Login() {
 
             <div className="mt-6 text-moviedb-gray">
             New to moviedb?
-            <a href="#" className="text-white hover:underline">Sign up now</a>
+            <Link href="/user/register" className="text-white hover:underline">Sign up now</Link>
             </div>
         </div>
         </div>

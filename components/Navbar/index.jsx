@@ -8,8 +8,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-6 flex justify-between items-center">
         <div className="flex items-center">
           <Link href="/" className="text-red-600 text-4xl font-bold">MOVIE DB</Link>
-          <div className="ml-8 space-x-4">
-            
+          <div className="ml-8 space-x-4">            
             <Link href="/" className="text-white hover:text-gray-300">
               Home
             </Link>

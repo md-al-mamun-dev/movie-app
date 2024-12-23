@@ -1,6 +1,56 @@
-import React from 'react'
+"use client"
+import Link from "next/link"
+import { useState } from "react"
+import { useAuth } from "@/context/auth/context"
+import { useRouter } from "next/navigation"
 
 export default function page() {
+  const router = useRouter()
+  // firstname, 
+  // lastname,
+  // email,
+  // password: hashedPassword,
+  async function onFormSubmit(event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const firstname = formData.get("firstname")
+    const lastname = formData.get("lastname")
+    const email = formData.get("email")
+    const password = formData.get("password")
+    const confirmPassword = formData.get("confirmPassword")
+
+
+
+    const payload = {
+                    firstname,
+                    lastname,
+                    email,
+                    password,
+                    confirmPassword
+                };
+    try {
+        // const response = await fetch(`/api/auth/login`, {
+        const response = await fetch(`${process.env.BASE_URL}/api/auth/signup`, {            
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const resJson  = await response.json()
+
+        if(resJson.success){
+          console.log(resJson)
+            // setUser(data?.user)
+            router.push('/user/login')
+        }
+    } catch (error) {
+        
+    }
+  }
+
+
   return (
     <div
     class="bg-moviedb-black min-h-screen flex items-center justify-center p-4"
@@ -9,35 +59,40 @@ export default function page() {
       <div class="text-center">
         <h1 class="text-white text-3xl font-bold mb-6">Create Your Account</h1>
 
-        <form id="signupForm" class="space-y-4">
+        <form onSubmit={onFormSubmit} id="signupForm" class="space-y-4">
           <input
+            name="firstname"
             type="text"
             placeholder="First Name"
-            class="w-full p-3 bg-moviedb-gray text-white rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
+            class="w-full p-3 bg-moviedb-gray text-black rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
             required
           />
           <input
+            name="lastname"
             type="text"
             placeholder="Last Name"
-            class="w-full p-3 bg-moviedb-gray text-white rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
+            class="w-full p-3 bg-moviedb-gray text-black rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
             required
           />
           <input
+            name="email"
             type="email"
             placeholder="Email Address"
-            class="w-full p-3 bg-moviedb-gray text-white rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
+            class="w-full p-3 bg-moviedb-gray text-black rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
             required
           />
           <input
+            name="password"
             type="password"
             placeholder="Create Password"
-            class="w-full p-3 bg-moviedb-gray text-white rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
+            class="w-full p-3 bg-moviedb-gray text-black rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
             required
           />
           <input
+            name="confirmPassword"
             type="password"
             placeholder="Confirm Password"
-            class="w-full p-3 bg-moviedb-gray text-white rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
+            class="w-full p-3 bg-moviedb-gray text-black rounded focus:outline-none focus:ring-2 focus:ring-moviedb-red"
             required
           />
 
@@ -58,7 +113,7 @@ export default function page() {
 
         <div class="mt-6 text-moviedb-gray">
           Already have an account?
-          <a href="#" class="text-white hover:underline">Sign in</a>
+          <Link href="/user/login" class="text-white hover:underline">Sign in</Link>
         </div>
       </div>
     </div>

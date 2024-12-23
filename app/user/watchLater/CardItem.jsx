@@ -6,8 +6,12 @@ export default function CardItem({data, refetch, setInfo}) {
   const {poster_path, backdrop_path, title, release_date  }  = movieDetails 
 
   async function removeButtonClickHandlar(id) {
+
+    console.log(id)
+    console.log(data.movieId)
+
     const prevData = data
-    setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
+    setInfo(prev => ({ ...prev, data: prev['data'].filter(item => (item.movieId != id)) }))
     try {
       const res = await fetch(`${process.env.BASE_URL}/api/me/watch-later`, {
           method: "DELETE",
@@ -19,7 +23,9 @@ export default function CardItem({data, refetch, setInfo}) {
       const result = await res.json();
 
   } catch (error) {
-    setInfo(prev => !prev.some(item => item.movieId === id) ? [...prev, {...data}] : prev)
+    setInfo(prev => !prev.some(item => item.movieId === id) 
+                                          ? [...prev, {...prevData}] 
+                                          : prev)
     alert("Error remove form :", error);
   }
   }

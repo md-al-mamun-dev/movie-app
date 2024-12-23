@@ -4,36 +4,41 @@ import WatchListButton from "./WatchListButton";
 import SocialShare from "./SocialShare";
 import dynamic from "next/dynamic";
 import getMovie from "@/lib/api/getMovieDetails";
-import Head from "next/head";
+import SocialSharePreviewModal from "./SocialSharePreviewModal";
 const SimilarMoviesSection = dynamic(() => import('./SimilarMoviesSection'), {
                                                                                 loading: () => <p>Loading...</p>,
                                                                                 ssr: false,
                                                                               })
 
-
-
 export async function generateMetadata({ params, searchParams }, parent) {
-  // read route params
   const { movieId } = params
   const movie = await getMovie(movieId)
-  console.log(movie)
+
   const { title, poster_path, backdrop_path, release_date, runtime, overview, genres, cast } = movie
-
-
-  // fetch data
-  // const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-  // const post = await res.json();
-
-  // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
+
+
+  // return {
+  //     title: title.slice(0, 100),
+  //     description: overview.slice(0, 100),
+  //     openGraph: {
+  //         images: [
+  //             {
+  //                 url: `https://image.tmdb.org/t/p/original/${poster_path}`,
+  //                 width: 1200,
+  //                 height: 600,
+  //             },
+  //         ],
+  //     },
+  // };
   return {
       title: title.slice(0, 100),
-      description: overview.slice(0, 100),
+      description: overview.slice(0, 200),
       openGraph: {
           images: [
               {
-                  url: `https://image.tmdb.org/t/p/original/${poster_path}`,
+                  url: `${process.env.BASE_URL}/api/og?title=${title.slice(0, 100)}&img=${backdrop_path}&description=${overview.slice(0, 200)}`,
                   width: 1200,
                   height: 600,
               },
@@ -41,6 +46,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
       },
   };
 }
+
+
 
 export default async function page({params}) {
     const { movieId } = params
@@ -50,6 +57,7 @@ export default async function page({params}) {
     // const siteUrl = process.env.BASE_URL;
     // const pageUrl = `${siteUrl}/movie/${movieId}`;
     // const imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;
+
   return (
     <>
     {/* Movie Details Section  */}
@@ -127,7 +135,7 @@ export default async function page({params}) {
                 </div>
               </div>
               <WatchListButton movieId={movieId}/>
-              <SocialShare/>
+              <SocialShare image={backdrop_path} title={title} img={backdrop_path} description={overview}/>
             </div>
           </div>
         </div>
