@@ -1,7 +1,8 @@
 "use client"
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "next-share";
 
 export default function PreviewModal({ data,  onClose}) {
     const {isOpen, socialSite, image, title, description } = data || {}
@@ -31,6 +32,22 @@ export default function PreviewModal({ data,  onClose}) {
           window.open(shareUrl, "_blank", "width=600,height=400");
         }
     }
+
+    const timeoutRef = useRef(null);
+    const handleShareClick = () => {
+        timeoutRef.current = setTimeout(() => {
+            onClose();
+        }, 2000);
+    };
+
+    useEffect(() => {
+        // Cleanup timeout on unmount
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return (
         <div
@@ -67,44 +84,69 @@ export default function PreviewModal({ data,  onClose}) {
                     >
                         Close
                     </button>
-                    <button onClick={handleSocialShare}
-                        className={`w-full flex items-center justify-center gap-4 rounded-lg font-semibold
-                                        ${socialSite === "facebook" && "bg-[#316FF6] text-white"}
-                                        ${socialSite === "x" && "bg-black text-white"}
-                                        ${socialSite === "linkedin" && "bg-[#0077B5] text-white"}
-                                    `}>
-                            Share
-                            {
-                                socialSite === "facebook"
-                                    && <Image
-                                            src="https://facebook.com/favicon.ico"
-                                            alt="facebook"
-                                            height={32}
-                                            width={32}
-                                            className=" rounded-full object-cover "
-                                        />
-                            }
-                            {
-                                socialSite === "x"
-                                    && <Image
-                                            src="https://x.com/favicon.ico"
-                                            alt="X"
-                                            height={32}
-                                            width={32}
-                                            className=" rounded-full object-cover "
-                                        />
-                            }
-                            {   socialSite === "linkedin" &&
-                                <Image
-                                    src="https://www.linkedin.com/favicon.ico"
-                                    alt="Facebook"
-                                    height={32}
-                                    width={32}
-                                    className="w-8 h-8 rounded-full object-cover"
-                                    />}
-                                    
+
+                    <div className="mx-auto">
+                        {
+                            socialSite === "facebook" &&
+                                <FacebookShareButton
+                                    onClick={handleShareClick}
+                                    url={process.env.BASE_URL+pathname}
+                                    quote={title} >
+                                        <div 
+                                            className={`w-full flex items-center justify-center gap-4 rounded-lg font-semibold
+                                                        ${socialSite === "facebook" && "bg-[#316FF6] text-white"} px-8 py-1`}>
+                                            <Image
+                                                    src="https://facebook.com/favicon.ico"
+                                                    alt="facebook"
+                                                    height={32}
+                                                    width={32}
+                                                    className=" rounded-full object-cover "
+                                                />
+                                                Share
+                                        </div>
+                                </FacebookShareButton>
+                        }
+                        {
+                            socialSite === "x" &&
+                                <TwitterShareButton
+                                    onClick={handleShareClick}
+                                    url={process.env.BASE_URL+pathname}
+                                    quote={title} >
+                                        <div className={`w-full flex items-center justify-center gap-4 rounded-lg font-semibold
+                                                        ${socialSite === "x" && "bg-black text-white"} px-8 py-1`}>
+                                            <Image
+                                                    src="https://x.com/favicon.ico"
+                                                    alt="X"
+                                                    height={32}
+                                                    width={32}
+                                                    className=" rounded-full object-cover "
+                                                />
+                                                Share
+                                        </div>
+                                </TwitterShareButton>
+                        }
+                        {
+                            socialSite === "linkedin" &&
+                                <LinkedinShareButton
+                                    onClick={handleShareClick}
+                                    url={process.env.BASE_URL+pathname}
+                                    quote={title} >
+                                        <div className={`w-full flex items-center justify-center gap-4 rounded-lg font-semibold
+                                                       ${socialSite === "linkedin" && "bg-[#0077B5] text-white"} px-8 py-1`}>
+                                            <Image
+                                                    src="https://www.linkedin.com/favicon.ico"
+                                                    alt="Facebook"
+                                                    height={32}
+                                                    width={32}
+                                                    className="w-8 h-8 rounded-full object-cover"
+                                                    />
+                                                Share
+                                        </div>
+                                </LinkedinShareButton>
+                        }
                         
-                    </button>
+                    </div>
+                    
                 </div>
                 
             </div>

@@ -17,8 +17,6 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const { title, poster_path, backdrop_path, release_date, runtime, overview, genres, cast } = movie
   const previousImages = (await parent).openGraph?.images || [];
 
-
-
   // return {
   //     title: title.slice(0, 100),
   //     description: overview.slice(0, 100),
@@ -32,6 +30,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   //         ],
   //     },
   // };
+
   return {
       title: title.slice(0, 100),
       description: overview.slice(0, 200),

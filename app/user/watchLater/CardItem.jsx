@@ -6,10 +6,6 @@ export default function CardItem({data, refetch, setInfo}) {
   const {poster_path, backdrop_path, title, release_date  }  = movieDetails 
 
   async function removeButtonClickHandlar(id) {
-
-    console.log(id)
-    console.log(data.movieId)
-
     const prevData = data
     setInfo(prev => ({ ...prev, data: prev['data'].filter(item => (item.movieId != id)) }))
     try {
@@ -24,7 +20,7 @@ export default function CardItem({data, refetch, setInfo}) {
 
   } catch (error) {
     setInfo(prev => !prev.some(item => item.movieId === id) 
-                                          ? [...prev, {...prevData}] 
+                                          ? [...prev, { ...prevData}] 
                                           : prev)
     alert("Error remove form :", error);
   }
