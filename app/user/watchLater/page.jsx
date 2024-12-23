@@ -5,11 +5,7 @@ import CardItem from './CardItem'
 
 export default function WatchLater() {
   const {data: watchLaterList, refetch, setInfo } = useWatchLater()
-  // function removeWatchLaterItem(id) {
-  //   setInfo(prev => ({ ...prev, data: [...prev['data'].filter(item => item.movieId != id )] }))
-  // }
-  // console.log(watchLaterList)
-  console.log(watchLaterList)
+
   return (
     <div className="container mx-auto pt-24 pb-8">
       <header className="mb-8">

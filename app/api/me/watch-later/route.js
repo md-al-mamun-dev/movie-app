@@ -107,7 +107,7 @@ export async function POST(request) {
 
         if (!collectionExists) {
             await db.createCollection("watchLater");
-            console.log("Created 'watchLater' collection.");
+
         }
 
         const watchLaterCollection = db.collection("watchLater");

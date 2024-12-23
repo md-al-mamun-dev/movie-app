@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function MovieCard({data}) {
-    console.log(data)
     const { id, poster_path, title, release_date, vote_average  } = data 
   return (
     <Link href={`/movie/${id}`}

@@ -19,7 +19,6 @@ export default function useMovieDetails(id) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const resJson = await res.json();
-            console.log(resJson)
             setInfo({
                 isLoading: false,
                 isError: false,
@@ -28,7 +27,6 @@ export default function useMovieDetails(id) {
             });
         } catch (error) {
             if (signal?.aborted) {
-                console.log("Fetch aborted");
                 return;
             }
             setInfo({

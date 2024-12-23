@@ -16,7 +16,6 @@ export async function POST(request) {
 
         if (!collectionExists) {
             await db.createCollection("users"); // Create the collection explicitly
-            console.log("Collection 'users' created.");
         }
 
         const usersCollection = db.collection("users");

@@ -4,10 +4,6 @@ import { useRouter } from "next/navigation"
 
 export default function Register() {
   const router = useRouter()
-  // firstname, 
-  // lastname,
-  // email,
-  // password: hashedPassword,
   async function onFormSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -39,8 +35,6 @@ export default function Register() {
         const resJson  = await response.json()
 
         if(resJson.success){
-          console.log(resJson)
-            // setUser(data?.user)
             router.push('/user/login')
         }
     } catch (error) {

@@ -25,7 +25,6 @@ export default function Compare() {
           throw new Error(`HTTP error! status: ${res.status}`);
       }
       const resJson = await res.json();
-      console.log(resJson)
       if(movies.length=== 0 || (movies.length === 1 && Object.keys(movies[0]).length === 0)){
         setMovies([resJson])
       }else if(movies.length > 1 && (index == (movies.length-1))){

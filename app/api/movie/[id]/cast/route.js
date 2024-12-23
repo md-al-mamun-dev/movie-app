@@ -3,11 +3,8 @@ import fetchWithMovieDbAuth from "@/lib/api/fetchWithMovieDbAuth";
 export async function GET(request) {
     const urlParts = request.nextUrl.pathname.split('/');
     const id = urlParts[urlParts.length - 2]; 
-    console.log(id)
     const url = `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`
 
-    
-    
     try {
       const res = await fetchWithMovieDbAuth(url)
       const resJson =  await res.json()

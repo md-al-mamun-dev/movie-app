@@ -1,7 +1,5 @@
 
 export default async function Hero() {
-    // const movie  = await getLatestMovies()
-    // console.log(movie)
 
   return (
     <div

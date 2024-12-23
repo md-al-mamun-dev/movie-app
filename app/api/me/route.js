@@ -16,7 +16,7 @@ export async function GET(request) {
     }
     try {
         const userData = await getDataFromToken(token);
-        console.log(userData)
+
         if (!userData) {
             throw new Error("User not found");
         }

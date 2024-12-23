@@ -18,9 +18,6 @@ export async function GET(request) {
   const description = hasDescription
                   ? searchParams.get('description')
                   : null
-  console.log(img)
-  
-  // https://image.tmdb.org/t/p/original/${backdrop_path}
   
   return new ImageResponse(
     (

@@ -6,12 +6,7 @@ import { usePathname } from "next/navigation"
 export default function AuthNavigation() {
 
     const pathname  = usePathname()
-    console.log(pathname.split('/')[pathname.split('/').length-1])
-
-
-
     const {isLoggedIn, setUser} = useAuth()
-    console.log(isLoggedIn)
 
     async function handleLogout() {
         try {
@@ -27,8 +22,6 @@ export default function AuthNavigation() {
                     });
 
             const data  = await response.json()
-            console.log(response)
-            console.log(data)
             if(data.success){
                 setUser(null)
             }

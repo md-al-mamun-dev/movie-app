@@ -24,7 +24,7 @@ export default function useTrendingMovies(url = `${process.env.BASE_URL}/api/mov
             });
         } catch (error) {
             if (signal && signal.aborted) {
-                console.log("Fetch aborted");
+
                 return;
             }
             setInfo({

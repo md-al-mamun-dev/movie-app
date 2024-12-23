@@ -7,7 +7,6 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "ne
 export default function PreviewModal({ data,  onClose}) {
     const {isOpen, socialSite, image, title, description } = data || {}
     const pathname = usePathname()
-    console.log(process.env.BASE_URL+pathname)
     function handleSocialShare() {
         let shareUrl = "";
         const currentUrl = `${process.env.BASE_URL}${pathname}`; 

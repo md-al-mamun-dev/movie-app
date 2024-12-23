@@ -3,10 +3,7 @@ import fetchWithMovieDbAuth from "@/lib/api/fetchWithMovieDbAuth";
 export async function GET(request) {
     const urlParts = request.nextUrl.pathname.split('/');
     const id = urlParts[urlParts.length - 2]; 
-    console.log(Math.floor((Math.random() * 10) + 1))
     const url = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US`
-
-    
     
     try {
       const res = await fetchWithMovieDbAuth(url, "dynamic")

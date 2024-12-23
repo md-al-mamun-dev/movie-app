@@ -28,7 +28,6 @@ export default function useTrendingMovies(query) {
             });
         } catch (error) {
             if (signal && signal.aborted) {
-                console.log("Fetch aborted");
                 return;
             }
             setInfo({

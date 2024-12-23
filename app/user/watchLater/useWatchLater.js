@@ -24,7 +24,7 @@ export default function useWatchLater() {
             });
         } catch (error) {
             if (signal?.aborted) {
-                console.log("Fetch aborted");
+
                 return;
             }
             setInfo({
