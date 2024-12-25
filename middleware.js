@@ -6,12 +6,17 @@ export function middleware(request) {
 
     const privateRoute = "/user/watchLater";
     const authRoutes = ["/user/login", "/user/register"];
+    console.log(privateRoute)
+    console.log(token)
+    console.log(pathname)
 
     // restriction for public route
     if (pathname.startsWith(privateRoute)) {
         if (!token) {
+            console.log("invalid token")
             const loginUrl = new URL("/user/login", request.url);
             loginUrl.searchParams.set("redirect", pathname);
+            return NextResponse.redirect(new URL(loginUrl, request.url))
         }
         return NextResponse.next(); 
     }
