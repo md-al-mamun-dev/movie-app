@@ -43,6 +43,12 @@ const nextConfig = {
             port: '3000',
             pathname: '/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'movieapp-six-dusky.vercel.app',
+            port: '',
+            pathname: '/**',
+          },
         ],
       },
 };
